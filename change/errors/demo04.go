@@ -55,8 +55,8 @@ func (fe FormattedError) Format(f fmt.State, c rune) {
 
 // FormatError 会返回错误链中的下一个错误值。
 func (fe FormattedError) FormatError(p xerrors.Printer) (next error) {
-	p.Print(fe.msg)
-	return fe.inner
+	p.Print(fe.Error())
+	return fe.Unwrap()
 }
 
 func demoForWrapper() {
@@ -97,8 +97,7 @@ func demoForXerrors() {
 		msg:   "operation error",
 		inner: err3_2,
 	}
-	err3_4 := fmt.Errorf("something wrong: %w", err3_3)
-	fmt.Printf("Error: %v\n", err3_4)
+	fmt.Printf("Error: %v\n", err3_3)
 }
 
 func main() {
